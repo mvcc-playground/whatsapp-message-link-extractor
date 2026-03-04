@@ -24,7 +24,7 @@
 >
 	<Checkbox.HiddenInput />
 	<Checkbox.Control class="flex h-4 w-4 items-center justify-center rounded border border-slate-400 data-[state=checked]:border-slate-900 data-[state=checked]:bg-slate-900">
-		<Checkbox.Indicator class="text-xs text-white">?</Checkbox.Indicator>
+		<Checkbox.Indicator class="text-[10px] font-bold leading-none text-white">x</Checkbox.Indicator>
 	</Checkbox.Control>
 	<Checkbox.Label class="text-sm text-slate-700">{label}</Checkbox.Label>
 </Checkbox.Root>
