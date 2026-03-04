@@ -90,9 +90,9 @@
 
 		<LinksVirtualList
 			occurrences={$visibleOccurrencesStore}
+			totalOccurrences={$selectionStatsStore.total}
 			selectedIds={$selectedIdsStore}
 			messageById={messageById}
-			rowHeight={$uiPreferencesStore.rowHeight}
 			onToggle={selectionActions.toggleOccurrence}
 			onSelectUntil={(messageId) => {
 				filterActions.setUntilMessage(messageId);

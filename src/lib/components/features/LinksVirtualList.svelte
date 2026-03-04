@@ -7,49 +7,83 @@
 
 	let {
 		occurrences,
+		totalOccurrences,
 		selectedIds,
 		messageById,
-		rowHeight,
 		onToggle,
 		onSelectUntil
 	}: {
 		occurrences: readonly ExtractedLinkOccurrence[];
+		totalOccurrences: number;
 		selectedIds: Set<string>;
 		messageById: Map<string, ChatMessage>;
-		rowHeight: number;
 		onToggle: (occurrenceId: string) => void;
 		onSelectUntil: (messageId: string) => void;
 	} = $props();
 
-	let scrollTop = $state(0);
-	let viewportHeight = $state(540);
-	const overscan = 5;
+	let pageSizeOption = $state<'100' | '200' | '500' | 'all'>('200');
+	let currentPage = $state(1);
+	let pageSize = $derived(
+		pageSizeOption === 'all' ? Math.max(1, occurrences.length) : Number(pageSizeOption)
+	);
 
-	let startIndex = $derived(Math.max(0, Math.floor(scrollTop / rowHeight) - overscan));
-	let visibleCount = $derived(Math.ceil(viewportHeight / rowHeight) + overscan * 2);
-	let endIndex = $derived(Math.min(occurrences.length, startIndex + visibleCount));
-	let totalHeight = $derived(occurrences.length * rowHeight);
-	let topPadding = $derived(startIndex * rowHeight);
-	let bottomPadding = $derived(Math.max(0, totalHeight - topPadding - (endIndex - startIndex) * rowHeight));
-	let windowed = $derived(occurrences.slice(startIndex, endIndex));
+	let totalPages = $derived(Math.max(1, Math.ceil(occurrences.length / pageSize)));
+	let startIndex = $derived((currentPage - 1) * pageSize);
+	let endIndex = $derived(Math.min(occurrences.length, startIndex + pageSize));
+	let pageItems = $derived(occurrences.slice(startIndex, endIndex));
 
-	function handleScroll(event: Event): void {
-		const target = event.currentTarget as HTMLElement;
-		scrollTop = target.scrollTop;
-		viewportHeight = target.clientHeight;
-	}
+	$effect(() => {
+		if (currentPage > totalPages) {
+			currentPage = totalPages;
+		}
+		if (currentPage < 1) {
+			currentPage = 1;
+		}
+	});
 
 	function formatTimestamp(timestamp: Date | null): string {
-		return timestamp ? timestamp.toLocaleString('pt-BR') : 'Data indisponível';
+		return timestamp ? timestamp.toLocaleString('pt-BR') : 'Data indisponivel';
 	}
 </script>
 
-<Panel title="Ocorrências de links" description="Lista virtualizada para manter fluidez em históricos longos.">
-	<div class="h-[540px] overflow-auto rounded-lg border border-slate-200 bg-slate-50" onscroll={handleScroll}>
-		<div style={`padding-top: ${topPadding}px; padding-bottom: ${bottomPadding}px`}>
-			{#each windowed as occurrence (occurrence.occurrenceId)}
+<Panel title="Ocorrencias de links" description="Lista paginada para manter fluidez e previsibilidade em historicos grandes.">
+	<div class="mb-3 flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-200 bg-slate-50 p-2">
+		<div class="text-xs text-slate-600">
+			Elegiveis: {occurrences.length} de {totalOccurrences} total
+		</div>
+		<div class="text-xs text-slate-600">
+			Mostrando {occurrences.length === 0 ? 0 : startIndex + 1}-{endIndex} de {occurrences.length}
+		</div>
+		<div class="flex items-center gap-2">
+			<label class="text-xs text-slate-600" for="page-size-select">Por pagina</label>
+			<select
+				id="page-size-select"
+				class="rounded-md border border-slate-300 px-2 py-1 text-xs"
+				value={pageSizeOption}
+				onchange={(event) => {
+					pageSizeOption = (event.currentTarget as HTMLSelectElement).value as
+						| '100'
+						| '200'
+						| '500'
+						| 'all';
+					currentPage = 1;
+				}}
+			>
+				<option value="100">100</option>
+				<option value="200">200</option>
+				<option value="500">500</option>
+				<option value="all">Todos</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="max-h-[65vh] overflow-auto rounded-lg border border-slate-200 bg-slate-50">
+		{#if pageItems.length === 0}
+			<p class="p-3 text-sm text-slate-500">Nenhum link para exibir com os filtros atuais.</p>
+		{:else}
+			{#each pageItems as occurrence (occurrence.occurrenceId)}
 				{@const message = messageById.get(occurrence.messageId)}
-				<article class="grid gap-3 border-b border-slate-200 bg-white p-3" style={`min-height: ${rowHeight}px`}>
+				<article class="grid gap-3 border-b border-slate-200 bg-white p-3">
 					<div class="flex items-start justify-between gap-3">
 						<Checkbox
 							label={occurrence.normalizedUrl}
@@ -57,7 +91,9 @@
 							onCheckedChange={() => onToggle(occurrence.occurrenceId)}
 							class="flex-1"
 						/>
-						<Button variant="ghost" onclick={() => onSelectUntil(occurrence.messageId)}>Selecionar daqui para frente</Button>
+						<Button variant="ghost" onclick={() => onSelectUntil(occurrence.messageId)}>
+							Selecionar daqui para frente
+						</Button>
 					</div>
 					<div class="grid gap-1 text-xs text-slate-500 md:grid-cols-3">
 						<span>Linha: {occurrence.lineNumber}</span>
@@ -69,6 +105,22 @@
 					{/if}
 				</article>
 			{/each}
-		</div>
+		{/if}
 	</div>
+
+	{#if pageSizeOption !== 'all'}
+		<div class="mt-3 flex items-center justify-between gap-2">
+			<Button variant="ghost" onclick={() => (currentPage = Math.max(1, currentPage - 1))} disabled={currentPage <= 1}>
+				Pagina anterior
+			</Button>
+			<p class="text-xs text-slate-600">Pagina {currentPage} de {totalPages}</p>
+			<Button
+				variant="ghost"
+				onclick={() => (currentPage = Math.min(totalPages, currentPage + 1))}
+				disabled={currentPage >= totalPages}
+			>
+				Proxima pagina
+			</Button>
+		</div>
+	{/if}
 </Panel>
