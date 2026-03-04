@@ -8,17 +8,28 @@
 		onInvert,
 		onClear
 	}: {
-		stats: { total: number; eligible: number; selectedTotal: number; selectedEligible: number };
+		stats: {
+			total: number;
+			eligible: number;
+			nonEligible: number;
+			selectedTotal: number;
+			selectedEligible: number;
+			selectedNonEligible: number;
+			invertWouldSelectTotal: number;
+		};
 		onSelectAll: () => void;
 		onInvert: () => void;
 		onClear: () => void;
 	} = $props();
 </script>
 
-<Panel title="Ações de seleção" description="Operações em lote sobre o conjunto elegível atual.">
+<Panel title="Acoes de selecao" description="Operacoes em lote sobre o conjunto atual de links.">
+	<div class="mb-2 text-xs text-slate-600">
+		Selecionados agora: {stats.selectedTotal} | Elegiveis atuais: {stats.eligible} | Se inverter: {stats.invertWouldSelectTotal}
+	</div>
 	<div class="flex flex-wrap items-center gap-2">
-		<Button onclick={onSelectAll}>Selecionar elegíveis ({stats.eligible})</Button>
-		<Button variant="secondary" onclick={onInvert}>Inverter elegíveis</Button>
-		<Button variant="ghost" onclick={onClear}>Limpar seleção</Button>
+		<Button onclick={onSelectAll}>Selecionar elegiveis ({stats.eligible})</Button>
+		<Button variant="secondary" onclick={onInvert}>Inverter selecao (todos -> {stats.invertWouldSelectTotal})</Button>
+		<Button variant="ghost" onclick={onClear}>Limpar selecao</Button>
 	</div>
 </Panel>

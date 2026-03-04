@@ -14,12 +14,21 @@ export const selectionStatsStore = computed(
 				selectedEligible += 1;
 			}
 		}
+		const total = occurrences.length;
+		const eligible = eligibleIds.size;
+		const nonEligible = Math.max(0, total - eligible);
+		const selectedTotal = selectedIds.size;
+		const selectedNonEligible = Math.max(0, selectedTotal - selectedEligible);
+		const invertWouldSelectTotal = Math.max(0, total - selectedTotal);
 
 		return {
-			total: occurrences.length,
-			eligible: eligibleIds.size,
-			selectedTotal: selectedIds.size,
-			selectedEligible
+			total,
+			eligible,
+			nonEligible,
+			selectedTotal,
+			selectedEligible,
+			selectedNonEligible,
+			invertWouldSelectTotal
 		};
 	}
 );
@@ -41,15 +50,13 @@ export const selectionActions = {
 		selectedIdsStore.set(new Set());
 	},
 	invertEligible(): void {
-		const eligible = eligibleOccurrenceIdsStore.get();
+		const allIds = occurrencesStore.get().map((occurrence) => occurrence.occurrenceId);
 		const current = selectedIdsStore.get();
-		const next = new Set(current);
+		const next = new Set<string>();
 
-		for (const eligibleId of eligible) {
-			if (next.has(eligibleId)) {
-				next.delete(eligibleId);
-			} else {
-				next.add(eligibleId);
+		for (const occurrenceId of allIds) {
+			if (!current.has(occurrenceId)) {
+				next.add(occurrenceId);
 			}
 		}
 
