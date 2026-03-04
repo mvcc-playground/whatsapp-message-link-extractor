@@ -57,7 +57,7 @@
 							onCheckedChange={() => onToggle(occurrence.occurrenceId)}
 							class="flex-1"
 						/>
-						<Button variant="ghost" onclick={() => onSelectUntil(occurrence.messageId)}>Selecionar até aqui</Button>
+						<Button variant="ghost" onclick={() => onSelectUntil(occurrence.messageId)}>Selecionar daqui para frente</Button>
 					</div>
 					<div class="grid gap-1 text-xs text-slate-500 md:grid-cols-3">
 						<span>Linha: {occurrence.lineNumber}</span>

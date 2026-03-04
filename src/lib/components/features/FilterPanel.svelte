@@ -102,6 +102,7 @@
 
 	<div class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
 		<p class="text-sm font-medium text-slate-700">Selecionar ate mensagem (inclusive)</p>
+		<p class="mt-1 text-xs text-slate-500">Mantem apenas links da mensagem escolhida para frente (mais recentes).</p>
 		<p class="mt-1 text-xs text-slate-500">
 			{#if selectedUntilMessage}
 				{describeMessage(selectedUntilMessage)}

@@ -53,14 +53,15 @@ export const eligibleOccurrencesStore = computed(
 		const fromDate = toDateOrNull(criteria.from);
 		const toDate = toDateOrNull(criteria.to);
 		const untilMessage = criteria.untilMessageId ? messageById.get(criteria.untilMessageId) : null;
-		const untilLine = untilMessage?.lineNumber ?? Number.POSITIVE_INFINITY;
+		const untilLine = untilMessage?.lineNumber ?? Number.NEGATIVE_INFINITY;
 
 		return occurrences.filter((occurrence) => {
 			const sourceMessage = messageById.get(occurrence.messageId);
 			const author = sourceMessage?.author ?? occurrence.author;
 			const text = sourceMessage?.text ?? '';
 
-			if (occurrence.lineNumber > untilLine) {
+			// "Ate mensagem" here means from the chosen message up to the newest messages.
+			if (untilMessage && occurrence.lineNumber < untilLine) {
 				return false;
 			}
 			if (!includesQuery(author, criteria.authorQuery)) {

@@ -65,7 +65,7 @@ export const selectionActions = {
 
 		const ids = occurrencesStore
 			.get()
-			.filter((occurrence) => occurrence.lineNumber <= messageLine)
+			.filter((occurrence) => occurrence.lineNumber >= messageLine)
 			.map((occurrence) => occurrence.occurrenceId);
 		selectedIdsStore.set(new Set(ids));
 	}
