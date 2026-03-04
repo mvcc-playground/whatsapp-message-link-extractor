@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+:root {
+	--app-bg-from: #eff6ff;
+	--app-bg-to: #f8fafc;
+	--app-accent: #0f172a;
+}
+
+body {
+	min-height: 100vh;
+	background-image: linear-gradient(160deg, var(--app-bg-from), var(--app-bg-to));
+	color: #0f172a;
+}
