@@ -1,4 +1,5 @@
 import { json } from '@sveltejs/kit';
+import { dev } from '$app/environment';
 import type { RequestHandler } from './$types';
 
 interface IncomingLogEvent {
@@ -29,6 +30,10 @@ export const POST: RequestHandler = async ({ request, getClientAddress }) => {
 
 	const clientAddress = getClientAddress();
 	for (const event of accepted) {
+		if (!dev && event.level === 'info') {
+			continue;
+		}
+
 		const line = `[client-log][${event.level}] ${event.at} ${event.message}`;
 		if (event.level === 'error') {
 			console.error(line, { ip: clientAddress, context: event.context });

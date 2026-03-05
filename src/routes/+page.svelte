@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { dev } from '$app/environment';
 
 	import ExportActions from '$lib/components/features/ExportActions.svelte';
 	import FileUploadPanel from '$lib/components/features/FileUploadPanel.svelte';
@@ -36,7 +37,7 @@
 	onMount(() => {
 		restorePreferences();
 		const stopPersist = persistPreferences();
-		const stopStoreDebug = startStoreDebugging();
+		const stopStoreDebug = dev ? startStoreDebugging() : () => undefined;
 		const stopUnloadFlush = startClientLogFlushOnUnload();
 
 		return () => {

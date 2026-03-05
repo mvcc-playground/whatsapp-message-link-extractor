@@ -23,8 +23,8 @@
 
 		try {
 			await onFileSelected(file);
-		} catch (error) {
-			console.error('Failed to process selected file', error);
+		} catch {
+			// File errors are surfaced by the ingest store state.
 		} finally {
 			target.value = '';
 		}

@@ -2,6 +2,11 @@
 
 Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
 
+## Ideias (para transformar em tarefas)
+
+- [PRIORIDADE] Conversa com IA simulando um participante do chat: permitir que a pessoa "converse" com a IA como se fosse a outra pessoa da conversa, usando o contexto das mensagens importadas.
+- [PRIORIDADE] Perguntas sobre as mensagens com IA: permitir consultas em linguagem natural (ex.: resumo, tópicos, datas, links citados, contradições, sentimento e fatos relevantes).
+
 ## Creating a project
 
 If you're seeing this, you've probably already done this step. Congrats!

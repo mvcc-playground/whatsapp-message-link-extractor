@@ -1,4 +1,5 @@
 import { browser } from '$app/environment';
+import { dev } from '$app/environment';
 
 export type ClientLogLevel = 'info' | 'warn' | 'error';
 
@@ -49,6 +50,9 @@ async function flushLogs(): Promise<void> {
 
 export function emitClientLog(level: ClientLogLevel, message: string, context?: unknown): void {
 	if (!browser) {
+		return;
+	}
+	if (!dev && level === 'info') {
 		return;
 	}
 
