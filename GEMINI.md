@@ -21,3 +21,9 @@ You MUST use this tool whenever writing Svelte code before sending it to the use
 
 Generates a Svelte Playground link with the provided code.
 After completing the code, ask the user if they want a playground link. Only call this tool after user confirmation and NEVER if code was written to files in their project.
+
+## UI Design Guidelines
+
+This application follows a specific **"1950s Detective Evidence Archive"** UI design metaphor. It utilizes neobrutalism, harsh shadows, typewriter fonts, and Tailwind CSS v4.
+**CRITICAL:** Do NOT use rounded soft corners (`rounded-lg`, etc.), soft box-shadows (`shadow-md`), or generic "AI-like" minimalist modern styles. Always maintain the tactile, physical paper aesthetics.
+See the full specification and class references at `spec/design-system-evidence-archive.md`. When adding or editing UI components, strictly adhere to these rules.
