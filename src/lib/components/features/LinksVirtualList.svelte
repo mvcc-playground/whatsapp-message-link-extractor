@@ -77,7 +77,7 @@
 		</div>
 	</div>
 
-	<div class="flex max-h-[65vh] flex-col gap-4 overflow-auto p-1">
+	<div class="relative flex max-h-[65vh] flex-col gap-4 overflow-auto p-1">
 		{#if pageItems.length === 0}
 			<p class="border-2 border-ink-black bg-paper-light p-4 font-typewriter text-sm font-bold text-ink-black">
 				NENHUMA EVIDÊNCIA ENCONTRADA COM OS FILTROS ATUAIS.

@@ -50,3 +50,6 @@ body {
   background-color: var(--color-paper-manila);
   border: 2px solid var(--color-ink-black);
 }
+
+
+.overflow-auto { overflow-anchor: none; }
