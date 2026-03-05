@@ -23,13 +23,13 @@
 	} = $props();
 </script>
 
-<Panel title="Acoes de selecao" description="Operacoes em lote sobre o conjunto atual de links.">
-	<div class="mb-2 text-xs text-slate-600">
-		Selecionados agora: {stats.selectedTotal} | Elegiveis atuais: {stats.eligible} | Se inverter: {stats.invertWouldSelectTotal}
+<Panel title="PRANCHETA: Operações em Lote" description="Comandos executivos sobre as evidências filtradas.">
+	<div class="mb-4 bg-ink-black p-2 font-typewriter text-xs font-bold text-white shadow-brutal-sm">
+		[ STATUS: {stats.selectedTotal} MARCADOS | {stats.eligible} ELEGÍVEIS | PROJEÇÃO INVERSA: {stats.invertWouldSelectTotal} ]
 	</div>
-	<div class="flex flex-wrap items-center gap-2">
-		<Button onclick={onSelectAll}>Selecionar elegiveis ({stats.eligible})</Button>
-		<Button variant="secondary" onclick={onInvert}>Inverter selecao (todos -> {stats.invertWouldSelectTotal})</Button>
-		<Button variant="ghost" onclick={onClear}>Limpar selecao</Button>
+	<div class="flex flex-wrap items-center gap-3">
+		<Button onclick={onSelectAll}>CARIMBAR ELEGÍVEIS ({stats.eligible})</Button>
+		<Button variant="secondary" onclick={onInvert}>INVERTER SELEÇÃO ({stats.invertWouldSelectTotal})</Button>
+		<Button variant="danger" onclick={onClear}>LIMPAR PRANCHETA</Button>
 	</div>
 </Panel>

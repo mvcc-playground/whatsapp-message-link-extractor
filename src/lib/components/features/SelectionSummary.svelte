@@ -17,14 +17,14 @@
 	} = $props();
 </script>
 
-<Panel title="Resumo" description="Numeros atualizados em tempo real pelas stores derivadas.">
-	<div class="flex flex-wrap gap-2">
-		<Badge label={`Links totais: ${stats.total}`} />
-		<Badge label={`Elegiveis: ${stats.eligible}`} tone="success" />
-		<Badge label={`Nao elegiveis: ${stats.nonEligible}`} />
-		<Badge label={`Selecionados: ${stats.selectedTotal}`} tone="warning" />
-		<Badge label={`Selecionados elegiveis: ${stats.selectedEligible}`} />
-		<Badge label={`Selecionados nao elegiveis: ${stats.selectedNonEligible}`} />
-		<Badge label={`Se inverter: ${stats.invertWouldSelectTotal}`} />
+<Panel title="BALANÇO DE PROVAS" description="Números atualizados em tempo real pelo departamento.">
+	<div class="flex flex-wrap gap-3">
+		<Badge label={`LINHAS TOTAIS: ${stats.total}`} />
+		<Badge label={`ELEGÍVEIS: ${stats.eligible}`} tone="success" />
+		<Badge label={`NÃO ELEGÍVEIS: ${stats.nonEligible}`} />
+		<Badge label={`SELECIONADOS (MARCADOS): ${stats.selectedTotal}`} tone="warning" />
+		<Badge label={`SEL. ELEGÍVEIS: ${stats.selectedEligible}`} />
+		<Badge label={`SEL. NÃO ELEGÍVEIS: ${stats.selectedNonEligible}`} />
+		<Badge label={`PROJEÇÃO (INVERSÃO): ${stats.invertWouldSelectTotal}`} />
 	</div>
 </Panel>

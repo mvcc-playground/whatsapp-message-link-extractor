@@ -15,24 +15,24 @@
 	} = $props();
 </script>
 
-<Panel title="Exportação" description="Copie os links selecionados (1 por linha).">
-	<div class="space-y-3">
-		<div class="flex flex-wrap items-center gap-2">
-			<Button onclick={onCopy}>Copiar para clipboard</Button>
+<Panel title="RELATÓRIO OFICIAL: Exportação" description="Copie as evidências selecionadas para o clipboard (1 por linha).">
+	<div class="space-y-4">
+		<div class="flex flex-wrap items-center gap-3 bg-paper-light p-3 border-2 border-ink-black shadow-brutal-sm">
+			<Button onclick={onCopy} class="!bg-stamp-red !text-white !py-3 !px-6 !text-lg">COPIAR RELATÓRIO (CLIPBOARD)</Button>
 			{#if copyStatus === 'success'}
-				<span class="text-sm text-emerald-700">Links copiados com sucesso.</span>
+				<span class="font-typewriter text-sm font-bold text-archive-green px-2">[ SUCESSO: COPIADO PARA A PRANCHETA ]</span>
 			{:else if copyStatus === 'error'}
-				<span class="text-sm text-rose-700">Nada selecionado ou sem permissão de clipboard.</span>
+				<span class="font-typewriter text-sm font-bold text-stamp-red px-2">[ ERRO: VAZIO OU SEM PERMISSÃO ]</span>
 			{/if}
 			{#if copyStatus !== 'idle'}
-				<Button variant="ghost" onclick={onResetStatus}>Ocultar status</Button>
+				<Button variant="ghost" onclick={onResetStatus}>[X] DISPENSAR AVISO</Button>
 			{/if}
 		</div>
 		<textarea
 			readonly
 			value={selectedOutput}
-			class="h-36 w-full rounded-lg border border-slate-300 bg-slate-50 p-3 font-mono text-xs"
-			placeholder="A lista dos links selecionados aparece aqui."
+			class="h-40 w-full border-4 border-ink-black bg-white p-4 font-typewriter text-sm font-bold text-ink-black outline-none shadow-brutal resize-y placeholder:text-ink-black/50"
+			placeholder="[ AS EVIDÊNCIAS SELECIONADAS SERÃO DATILOGRAFADAS AQUI ]"
 		></textarea>
 	</div>
 </Panel>

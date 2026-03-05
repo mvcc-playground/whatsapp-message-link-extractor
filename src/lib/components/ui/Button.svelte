@@ -12,16 +12,16 @@
 	}: HTMLButtonAttributes & { children?: Snippet; variant?: Variant } = $props();
 
 	const variantClasses: Record<Variant, string> = {
-		primary: 'bg-slate-900 text-white hover:bg-slate-700',
-		secondary: 'bg-slate-200 text-slate-900 hover:bg-slate-300',
-		ghost: 'bg-transparent text-slate-700 hover:bg-slate-100',
-		danger: 'bg-rose-700 text-white hover:bg-rose-600'
+		primary: 'bg-stamp-red text-white shadow-brutal active:shadow-brutal-active hover:shadow-brutal-hover active:translate-y-1 hover:translate-y-0.5',
+		secondary: 'bg-paper-light text-ink-black shadow-brutal active:shadow-brutal-active hover:shadow-brutal-hover active:translate-y-1 hover:translate-y-0.5',
+		ghost: 'bg-transparent text-ink-black hover:bg-ink-black hover:text-white border-transparent hover:border-ink-black',
+		danger: 'bg-ink-black text-white shadow-brutal active:shadow-brutal-active hover:shadow-brutal-hover active:translate-y-1 hover:translate-y-0.5'
 	};
 </script>
 
 <button
 	{...rest}
-	class={`inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50 ${variantClasses[variant]} ${className}`}
+	class={`inline-flex font-headline items-center justify-center gap-2 border-2 border-ink-black px-4 py-2 text-base font-bold uppercase tracking-wider transition-all disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none disabled:translate-y-1 ${variantClasses[variant]} ${className}`}
 >
 	{@render children?.()}
 </button>

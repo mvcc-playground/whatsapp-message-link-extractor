@@ -14,12 +14,12 @@
 	} = $props();
 </script>
 
-<section class={`rounded-xl border border-slate-200 bg-white p-4 shadow-sm ${className}`}>
+<section class={`border-2 border-ink-black bg-paper-manila p-5 shadow-brutal ${className}`}>
 	{#if title}
-		<header class="mb-3">
-			<h2 class="text-base font-semibold text-slate-900">{title}</h2>
+		<header class="mb-4 border-b-2 border-ink-black pb-2">
+			<h2 class="font-headline text-xl font-bold uppercase tracking-wide text-ink-black">{title}</h2>
 			{#if description}
-				<p class="mt-1 text-sm text-slate-500">{description}</p>
+				<p class="mt-1 font-typewriter text-sm font-bold text-ink-blue">{description}</p>
 			{/if}
 		</header>
 	{/if}

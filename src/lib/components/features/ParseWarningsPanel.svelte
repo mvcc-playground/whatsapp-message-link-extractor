@@ -8,14 +8,14 @@
 </script>
 
 {#if warnings.length > 0}
-	<Panel title="Avisos de parsing" description="Linhas fora do padrão foram ignoradas.">
-		<div class="mb-3">
-			<Badge label={`${warnings.length} aviso(s)`} tone="warning" />
+	<Panel title="ALERTAS DE ANÁLISE" description="Registros danificados ou fora do protocolo." class="!bg-yellow-200 !border-stamp-red">
+		<div class="mb-4">
+			<Badge label={`${warnings.length} ANOMALIA(S) DETECTADA(S)`} tone="warning" />
 		</div>
-		<ul class="max-h-44 space-y-2 overflow-auto pr-2">
+		<ul class="max-h-48 space-y-3 overflow-auto pr-2">
 			{#each warnings.slice(0, 50) as warning (warning.lineNumber + warning.reason)}
-				<li class="rounded-md bg-amber-50 px-3 py-2 text-xs text-amber-800">
-					<span class="font-semibold">Linha {warning.lineNumber}:</span> {warning.reason}
+				<li class="border-l-4 border-stamp-red bg-white px-4 py-3 font-typewriter text-xs font-bold text-ink-black shadow-brutal-sm">
+					<span class="bg-stamp-red px-1 text-white">LINHA {warning.lineNumber}:</span> {warning.reason.toUpperCase()}
 				</li>
 			{/each}
 		</ul>

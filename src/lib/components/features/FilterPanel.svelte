@@ -53,73 +53,73 @@
 	}
 </script>
 
-<Panel title="Filtros" description="Selecione ocorrencias dinamicamente antes de operar em massa.">
-	<div class="grid gap-3 md:grid-cols-2">
+<Panel title="PARÂMETROS DE BUSCA: Filtros" description="Refine as evidências antes de arquivar.">
+	<div class="grid gap-4 md:grid-cols-2">
 		<label class="space-y-1 text-sm">
-			<span class="text-slate-600">Autor</span>
+			<span class="font-headline font-bold uppercase text-ink-black">SUSPEITO (Autor)</span>
 			<Input
 				value={criteria.authorQuery}
 				oninput={(event) => onCriteriaChange({ authorQuery: (event.currentTarget as HTMLInputElement).value })}
-				placeholder="Filtrar por autor"
+				placeholder="Ex: +55 11 9999-9999"
 			/>
 		</label>
 		<label class="space-y-1 text-sm">
-			<span class="text-slate-600">Texto da mensagem</span>
+			<span class="font-headline font-bold uppercase text-ink-black">CONTEÚDO (Texto)</span>
 			<Input
 				value={criteria.textQuery}
 				oninput={(event) => onCriteriaChange({ textQuery: (event.currentTarget as HTMLInputElement).value })}
-				placeholder="Filtrar por texto"
+				placeholder="Palavra-chave..."
 			/>
 		</label>
 		<label class="space-y-1 text-sm">
-			<span class="text-slate-600">URL</span>
+			<span class="font-headline font-bold uppercase text-ink-black">ENDEREÇO (URL)</span>
 			<Input
 				value={criteria.urlQuery}
 				oninput={(event) => onCriteriaChange({ urlQuery: (event.currentTarget as HTMLInputElement).value })}
-				placeholder="Filtrar por link"
+				placeholder="Ex: drive.google.com"
 			/>
 		</label>
 		<label class="space-y-1 text-sm">
-			<span class="text-slate-600">Ordenacao</span>
+			<span class="font-headline font-bold uppercase text-ink-black">ORDENAÇÃO DO DOSSIÊ</span>
 			<select
-				class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+				class="w-full border-2 border-ink-black bg-paper-light px-3 py-2 font-typewriter text-sm font-bold text-ink-black outline-none transition-shadow focus:shadow-brutal-sm"
 				value={sortMode}
 				onchange={(event) => onSortChange((event.currentTarget as HTMLSelectElement).value as SortMode)}
 			>
-				<option value="chronological">Cronologica</option>
-				<option value="reverse">Mais recentes primeiro</option>
+				<option value="chronological">CRONOLÓGICA (ANTIGOS 1º)</option>
+				<option value="reverse">REVERSA (RECENTES 1º)</option>
 			</select>
 		</label>
 		<label class="space-y-1 text-sm">
-			<span class="text-slate-600">Data inicial</span>
+			<span class="font-headline font-bold uppercase text-ink-black">DATA INICIAL</span>
 			<Input type="datetime-local" value={criteria.from} oninput={(event) => onCriteriaChange({ from: (event.currentTarget as HTMLInputElement).value })} />
 		</label>
 		<label class="space-y-1 text-sm">
-			<span class="text-slate-600">Data final</span>
+			<span class="font-headline font-bold uppercase text-ink-black">DATA FINAL</span>
 			<Input type="datetime-local" value={criteria.to} oninput={(event) => onCriteriaChange({ to: (event.currentTarget as HTMLInputElement).value })} />
 		</label>
 	</div>
 
-	<div class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
-		<p class="text-sm font-medium text-slate-700">Selecionar ate mensagem (inclusive)</p>
-		<p class="mt-1 text-xs text-slate-500">Mantem apenas links da mensagem escolhida para frente (mais recentes).</p>
-		<p class="mt-1 text-xs text-slate-500">
+	<div class="mt-5 border-2 border-ink-black bg-white p-4 shadow-brutal-sm">
+		<p class="font-headline text-base font-bold uppercase text-ink-black">CORTE TEMPORAL (MARCADOR)</p>
+		<p class="mt-1 font-typewriter text-xs font-bold text-ink-blue">Descarta evidências anteriores à mensagem selecionada.</p>
+		<p class="mt-2 border-l-4 border-stamp-red bg-paper-manila p-2 font-typewriter text-xs font-bold text-ink-black">
 			{#if selectedUntilMessage}
-				{describeMessage(selectedUntilMessage)}
+				[ MARCADOR ATIVO ] {describeMessage(selectedUntilMessage)}
 			{:else}
-				Sem limite de mensagem selecionado.
+				[ NENHUM MARCADOR DEFINIDO ]
 			{/if}
 		</p>
-		<div class="mt-3 flex flex-wrap gap-2">
-			<Button variant="secondary" onclick={() => (untilPickerOpen = true)}>Pesquisar mensagem limite</Button>
+		<div class="mt-4 flex flex-wrap gap-3">
+			<Button variant="secondary" onclick={() => (untilPickerOpen = true)}>LOCALIZAR MENSAGEM...</Button>
 			{#if criteria.untilMessageId}
-				<Button variant="ghost" onclick={() => onCriteriaChange({ untilMessageId: null })}>Remover limite</Button>
+				<Button variant="danger" onclick={() => onCriteriaChange({ untilMessageId: null })}>REMOVER MARCADOR</Button>
 			{/if}
 		</div>
 	</div>
 
-	<div class="mt-4">
-		<Button variant="secondary" onclick={onReset}>Resetar filtros</Button>
+	<div class="mt-5 border-t-2 border-dashed border-ink-black pt-5">
+		<Button variant="ghost" onclick={onReset}>[x] LIMPAR FILTROS</Button>
 	</div>
 </Panel>
 
@@ -132,30 +132,30 @@
 		}
 	}}
 >
-	<Dialog.Backdrop class="fixed inset-0 z-40 bg-slate-900/40" />
+	<Dialog.Backdrop class="fixed inset-0 z-40 bg-ink-black/80 backdrop-blur-sm" />
 	<Dialog.Positioner class="fixed inset-0 z-50 flex items-start justify-center p-4 pt-14">
-		<Dialog.Content class="w-full max-w-3xl rounded-xl border border-slate-200 bg-white p-4 shadow-xl outline-none">
-			<div class="mb-3 flex items-center justify-between gap-2">
-				<Dialog.Title class="text-base font-semibold text-slate-900">Buscar mensagem limite</Dialog.Title>
-				<Dialog.CloseTrigger class="rounded-md border border-slate-300 px-2 py-1 text-xs text-slate-600">Fechar</Dialog.CloseTrigger>
+		<Dialog.Content class="w-full max-w-3xl border-4 border-ink-black bg-paper-manila p-6 shadow-brutal outline-none">
+			<div class="mb-4 flex items-center justify-between border-b-4 border-ink-black pb-2">
+				<Dialog.Title class="font-headline text-xl font-bold uppercase text-ink-black">LOCALIZAR MENSAGEM ALVO</Dialog.Title>
+				<Dialog.CloseTrigger class="border-2 border-ink-black bg-white px-3 py-1 font-typewriter text-sm font-bold uppercase text-ink-black hover:bg-stamp-red hover:text-white transition-colors">[X] FECHAR</Dialog.CloseTrigger>
 			</div>
 
 			<Input
 				value={untilQuery}
 				oninput={(event) => (untilQuery = (event.currentTarget as HTMLInputElement).value)}
-				placeholder="Digite autor, palavra ou trecho da mensagem"
-				class="mb-3"
+				placeholder="DIGITE PARTE DA MENSAGEM, AUTOR OU DATA..."
+				class="mb-4"
 			/>
 
-			<div class="max-h-[50vh] space-y-2 overflow-auto pr-1">
+			<div class="max-h-[50vh] space-y-3 overflow-auto pr-2">
 				{#if filteredUntilOptions.length === 0}
-					<p class="rounded-md bg-slate-100 px-3 py-2 text-sm text-slate-600">Nenhuma mensagem compativel encontrada.</p>
+					<p class="border-2 border-ink-black bg-white p-3 font-typewriter text-sm font-bold text-stamp-red">NENHUM RESULTADO ENCONTRADO NO ARQUIVO.</p>
 				{:else}
 					{#each filteredUntilOptions as message (message.id)}
 						<button
 							type="button"
 							onclick={() => pickUntilMessage(message.id)}
-							class="block w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-100"
+							class="block w-full border-2 border-ink-black bg-white p-3 text-left font-typewriter text-sm font-bold text-ink-black shadow-brutal-sm transition-transform hover:-translate-y-0.5 hover:bg-paper-light active:translate-y-0 active:shadow-none"
 						>
 							{describeMessage(message)}
 						</button>

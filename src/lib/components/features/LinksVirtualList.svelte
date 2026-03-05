@@ -46,19 +46,19 @@
 	}
 </script>
 
-<Panel title="Ocorrencias de links" description="Lista paginada para manter fluidez e previsibilidade em historicos grandes.">
-	<div class="mb-3 flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-200 bg-slate-50 p-2">
-		<div class="text-xs text-slate-600">
-			Elegiveis: {occurrences.length} de {totalOccurrences} total
+<Panel title="ARQUIVO DE EVIDÊNCIAS: Links" description="Fichas catalográficas paginadas.">
+	<div class="mb-4 flex flex-wrap items-center justify-between gap-2 border-2 border-ink-black bg-paper-light p-3 shadow-brutal-sm">
+		<div class="font-typewriter text-xs font-bold text-ink-black">
+			[ ELEGÍVEIS: {occurrences.length} DE {totalOccurrences} ]
 		</div>
-		<div class="text-xs text-slate-600">
-			Mostrando {occurrences.length === 0 ? 0 : startIndex + 1}-{endIndex} de {occurrences.length}
+		<div class="font-typewriter text-xs font-bold text-ink-black">
+			[ EXIBINDO: {occurrences.length === 0 ? 0 : startIndex + 1}-{endIndex} / {occurrences.length} ]
 		</div>
 		<div class="flex items-center gap-2">
-			<label class="text-xs text-slate-600" for="page-size-select">Por pagina</label>
+			<label class="font-typewriter text-xs font-bold text-ink-black" for="page-size-select">LOTE:</label>
 			<select
 				id="page-size-select"
-				class="rounded-md border border-slate-300 px-2 py-1 text-xs"
+				class="border-2 border-ink-black bg-white px-2 py-1 font-typewriter text-xs font-bold outline-none"
 				value={pageSizeOption}
 				onchange={(event) => {
 					pageSizeOption = (event.currentTarget as HTMLSelectElement).value as
@@ -72,36 +72,40 @@
 				<option value="100">100</option>
 				<option value="200">200</option>
 				<option value="500">500</option>
-				<option value="all">Todos</option>
+				<option value="all">TODOS</option>
 			</select>
 		</div>
 	</div>
 
-	<div class="max-h-[65vh] overflow-auto rounded-lg border border-slate-200 bg-slate-50">
+	<div class="flex max-h-[65vh] flex-col gap-4 overflow-auto p-1">
 		{#if pageItems.length === 0}
-			<p class="p-3 text-sm text-slate-500">Nenhum link para exibir com os filtros atuais.</p>
+			<p class="border-2 border-ink-black bg-paper-light p-4 font-typewriter text-sm font-bold text-ink-black">
+				NENHUMA EVIDÊNCIA ENCONTRADA COM OS FILTROS ATUAIS.
+			</p>
 		{:else}
 			{#each pageItems as occurrence (occurrence.occurrenceId)}
 				{@const message = messageById.get(occurrence.messageId)}
-				<article class="grid gap-3 border-b border-slate-200 bg-white p-3">
-					<div class="flex items-start justify-between gap-3">
+				<article class="flex flex-col gap-3 border-2 border-ink-black bg-paper-light p-4 shadow-brutal transition-transform hover:-translate-y-1">
+					<div class="flex items-start justify-between gap-3 border-b-2 border-dashed border-ink-black pb-3">
 						<Checkbox
 							label={occurrence.normalizedUrl}
 							checked={selectedIds.has(occurrence.occurrenceId)}
 							onCheckedChange={() => onToggle(occurrence.occurrenceId)}
-							class="flex-1"
+							class="flex-1 break-all"
 						/>
 						<Button variant="ghost" onclick={() => onSelectUntil(occurrence.messageId)}>
-							Selecionar daqui para frente
+							[ SELECIONAR DAQUI P/ FRENTE ]
 						</Button>
 					</div>
-					<div class="grid gap-1 text-xs text-slate-500 md:grid-cols-3">
-						<span>Linha: {occurrence.lineNumber}</span>
-						<span>Autor: {message?.author ?? occurrence.author ?? 'Sem autor'}</span>
-						<span>{formatTimestamp(occurrence.timestamp)}</span>
+					<div class="grid gap-2 font-typewriter text-xs font-bold text-ink-blue md:grid-cols-3">
+						<span class="bg-paper-manila px-2 py-1 border-2 border-ink-black">LINHA: {occurrence.lineNumber}</span>
+						<span class="bg-paper-manila px-2 py-1 border-2 border-ink-black truncate">AUTOR: {message?.author ?? occurrence.author ?? 'DESCONHECIDO'}</span>
+						<span class="bg-paper-manila px-2 py-1 border-2 border-ink-black">{formatTimestamp(occurrence.timestamp).toUpperCase()}</span>
 					</div>
 					{#if message?.text}
-						<p class="line-clamp-2 text-xs text-slate-600">{message.text}</p>
+						<p class="mt-2 border-l-4 border-stamp-red bg-white p-2 font-typewriter text-sm font-bold text-ink-black">
+							"{message.text}"
+						</p>
 					{/if}
 				</article>
 			{/each}
@@ -109,17 +113,17 @@
 	</div>
 
 	{#if pageSizeOption !== 'all'}
-		<div class="mt-3 flex items-center justify-between gap-2">
-			<Button variant="ghost" onclick={() => (currentPage = Math.max(1, currentPage - 1))} disabled={currentPage <= 1}>
-				Pagina anterior
+		<div class="mt-5 flex items-center justify-between gap-2 border-t-2 border-ink-black pt-4">
+			<Button variant="secondary" onclick={() => (currentPage = Math.max(1, currentPage - 1))} disabled={currentPage <= 1}>
+				&lt; ANTERIOR
 			</Button>
-			<p class="text-xs text-slate-600">Pagina {currentPage} de {totalPages}</p>
+			<p class="font-typewriter text-sm font-bold text-ink-black">PÁG. {currentPage} DE {totalPages}</p>
 			<Button
-				variant="ghost"
+				variant="secondary"
 				onclick={() => (currentPage = Math.min(totalPages, currentPage + 1))}
 				disabled={currentPage >= totalPages}
 			>
-				Proxima pagina
+				PRÓXIMA &gt;
 			</Button>
 		</div>
 	{/if}

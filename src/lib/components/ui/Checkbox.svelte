@@ -20,11 +20,11 @@
 	checked={checked}
 	disabled={disabled}
 	onCheckedChange={(details) => onCheckedChange?.(details.checked === true)}
-	class={`flex cursor-pointer items-center gap-2 ${disabled ? 'opacity-60' : ''} ${className}`}
+	class={`flex cursor-pointer items-center gap-3 ${disabled ? 'opacity-60' : ''} ${className}`}
 >
 	<Checkbox.HiddenInput />
-	<Checkbox.Control class="flex h-4 w-4 items-center justify-center rounded border border-slate-400 data-[state=checked]:border-slate-900 data-[state=checked]:bg-slate-900">
-		<Checkbox.Indicator class="text-[10px] font-bold leading-none text-white">x</Checkbox.Indicator>
+	<Checkbox.Control class="flex h-5 w-5 items-center justify-center border-2 border-ink-black bg-paper-light data-[state=checked]:bg-paper-light">
+		<Checkbox.Indicator class="font-typewriter text-lg font-bold leading-none text-stamp-red">X</Checkbox.Indicator>
 	</Checkbox.Control>
-	<Checkbox.Label class="text-sm text-slate-700">{label}</Checkbox.Label>
+	<Checkbox.Label class="font-typewriter text-sm font-bold text-ink-black">{label}</Checkbox.Label>
 </Checkbox.Root>

@@ -9,4 +9,6 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-{@render children()}
+<div class="bg-noise min-h-screen">
+	{@render children()}
+</div>

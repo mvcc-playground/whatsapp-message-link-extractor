@@ -8,10 +8,10 @@
 	} = $props();
 
 	const toneClasses = {
-		neutral: 'bg-slate-200 text-slate-700',
-		success: 'bg-emerald-100 text-emerald-700',
-		warning: 'bg-amber-100 text-amber-700'
+		neutral: 'bg-paper-light text-ink-black border-ink-black',
+		success: 'bg-archive-green text-white border-ink-black',
+		warning: 'bg-yellow-300 text-ink-black border-ink-black'
 	};
 </script>
 
-<span class={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${toneClasses[tone]}`}>{label}</span>
+<span class={`inline-flex border-2 px-2 py-0.5 font-typewriter text-xs font-bold uppercase tracking-wider ${toneClasses[tone]}`}>{label}</span>

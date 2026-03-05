@@ -51,11 +51,13 @@
 	<title>Extrator de Links do WhatsApp</title>
 </svelte:head>
 
-<main class="mx-auto flex w-full max-w-7xl flex-col gap-4 p-4 md:p-6">
-	<header class="rounded-xl border border-slate-200 bg-white/80 p-5 shadow-sm backdrop-blur">
-		<h1 class="text-2xl font-bold tracking-tight text-slate-900">Extrator de Links do WhatsApp</h1>
-		<p class="mt-2 max-w-3xl text-sm text-slate-600">
-			Core reativo com Nanostores: importe um TXT, filtre ocorrencias e opere selecao dinamica com acoes em massa.
+<main class="mx-auto flex w-full max-w-5xl flex-col gap-6 p-4 md:p-8">
+	<header class="border-2 border-ink-black bg-paper-light p-6 shadow-brutal">
+		<h1 class="font-headline text-3xl font-black uppercase tracking-widest text-ink-black">
+			Arquivo de Evidências: Extrator de Links
+		</h1>
+		<p class="mt-3 max-w-3xl border-l-4 border-stamp-red pl-4 text-sm font-bold text-ink-blue">
+			DEPARTAMENTO DE ANÁLISE: Importe um documento TXT, filtre ocorrências e opere seleção dinâmica com ações em massa. Restrito.
 		</p>
 	</header>
 
@@ -109,8 +111,9 @@
 
 		<ParseWarningsPanel warnings={$warningsStore} />
 	{:else}
-		<section class="rounded-xl border border-slate-200 bg-white p-6 text-sm text-slate-600 shadow-sm">
-			Envie um arquivo para iniciar o parsing e habilitar filtros/selecao.
+		<section class="border-2 border-ink-black bg-paper-manila p-8 text-center text-lg font-bold text-ink-black shadow-brutal">
+			<span class="block text-2xl mb-2">📎 CAIXA VAZIA</span>
+			Envie o arquivo do caso (TXT) para iniciar a triagem das provas e habilitar os filtros de investigação.
 		</section>
 	{/if}
 </main>
